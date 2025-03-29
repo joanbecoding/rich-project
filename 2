@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTech | Web & AI Solutions</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #2d3748;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #38b2ac;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 1rem;
+        }
+        
+        .nav-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #38b2ac;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #38b2ac;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/800') center/cover no-repeat;
+            opacity: 0.1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.2s both;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2rem;
+            background-color: #38b2ac;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s 0.4s both;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(56, 178, 172, 0.3);
+        }
+        
+        .code-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            color: #38b2ac;
+            font-family: monospace;
+            font-size: 14px;
+            animation: float 15s linear infinite;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 5%;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #38b2ac;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #2d3748;
+        }
+        
+        .service-content p {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-link {
+            color: #38b2ac;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .service-link span {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .service-link:hover span {
+            transform: translateX(5px);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .features-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features-list {
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon {
+            background-color: #38b2ac;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-text p {
+            color: #cbd5e0;
+        }
+        
+        .features-image {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(56, 178, 172, 0.2);
+            border-radius: 8px;
+            animation: float 10s infinite linear;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 5%;
+            background-color: #f8f9fa;
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin: 1rem;
+        }
+        
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #4a5568;
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .testimonial-company {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        /* Call to Action Section */
+        .cta {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #38b2ac 0%, #234e52 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .cta-btn.secondary:hover {
+            background-color: white;
+            color: #38b2ac;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: #cbd5e0;
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #38b2ac;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d3748;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: #38b2ac;
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(203, 213, 224, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx, 100px), var(--ty, 100px)) rotate(var(--tr, 360deg));
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            NexusTech<span class="logo-dot"></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#features">Why Us</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="code-particles" id="codeParticles"></div>
+        <h1>Transform Your Business with <br>Web & AI Solutions</h1>
+        <p>Custom websites and AI integrations that drive growth, enhance customer engagement, and boost your digital presence.</p>
+        <button class="cta-btn">Get Started</button>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('/api/placeholder/400/300')"></div>
+                <div class="service-content">
+                    <h3>Custom Website Development</h3>
+                    <p>Stunning, responsive websites designed to convert visitors into customers with seamless user experiences.</p>
+                    <a href="#" class="service-link">Learn More <span>→</span></a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('/api/placeholder/400/300')"></div>
+                <div class="service-content">
+                    <h3>AI-Powered Chatbots</h3>
+                    <p>Intelligent conversational agents that provide 24/7 customer support and streamline business operations.</p>
+                    <a href="#" class="service-link">Learn More <span>→</span></a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-img" style="background-image: url('/api/placeholder/400/300')"></div>
+                <div class="service-content">
+                    <h3>E-commerce Solutions</h3>
+                    <p>Complete online store setups with AI-driven product recommendations and personalized shopping experiences.</p>
+                    <a href="#" class="service-link">Learn More <span>→</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="features-content">
+                <h2>Why Choose Our AI-Enhanced Websites</h2>
+                <p>We combine cutting-edge web development with artificial intelligence to create websites that don't just look good—they work intelligently for your business.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <h3>Smart Customer Insights</h3>
+                            <p>AI analytics that help you understand customer behavior and optimize your digital strategy.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <h3>Automated Content Generation</h3>
+                            <p>AI tools that help create engaging content tailored to your audience's preferences.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <h3>Predictive Lead Scoring</h3>
+                            <p>Identify and prioritize your most promising leads with AI-powered insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-image">
+                <img src="/api/placeholder/600/400" alt="AI Features" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="floating-elements" id="floatingElements"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="testimonials-slider">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">JD</div>
+                <p class="testimonial-quote">"NexusTech transformed our online presence with a stunning website and AI-powered chat support. Our customer engagement has increased by 78% since launch."</p>
+                <p class="testimonial-author">John Doe</p>
+                <p class="testimonial-company">CEO, TechVentures</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action Section -->
+    <section class="cta" id="contact">
+        <h2>Ready to Elevate Your Digital Presence?</h2>
+        <p>Get in touch today for a free consultation and discover how our web and AI solutions can transform your business.</p>
+        <div class="cta-buttons">
+            <button class="cta-btn">Schedule a Consultation</button>
+            <button class="cta-btn secondary">View Portfolio</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>NexusTech</h3>
+                <p>Innovative web development and AI solutions for forward-thinking businesses.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">t</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">ig</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Website Development</a></li>
+                    <li><a href="#">AI Integration</a></li>
+                    <li><a href="#">E-commerce Solutions</a></li>
+                    <li><a href="#">Digital Marketing</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li>123 Tech Boulevard</li>
+                    <li>San Francisco, CA 94105</li>
+                    <li>info@nexustech.com</li>
+                    <li>(555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 NexusTech. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation for code particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeParticles = document.getElementById('codeParticles');
+            const codeSnippets = ['<div>', '</div>', 'function()', '{...}', 'AI.train()', 'const web = new Website()', 'if(success)', '.then()', 'import AI', 'export default'];
+            
+            // Create initial particles
+            for (let i = 0; i < 20; i++) {
+                createCodeParticle();
+            }
+            
+            // Create new particles at intervals
+            setInterval(createCodeParticle, 1000);
+            
+            function createCodeParticle() {
+                const particle = document.createElement('span');
+                particle.className = 'particle';
+                particle.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                
+                // Random positions and movements
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const tx = (Math.random() * 200) - 100;
+                const ty = (Math.random() * 200) - 100;
+                const tr = Math.random() * 720 - 360;
+                
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.setProperty('--tr', `${tr}deg`);
+                
+                // Animation duration varies
+                const duration = 5 + Math.random() * 15;
+                particle.style.animationDuration = `${duration}s`;
+                
+                codeParticles.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, duration * 1000);
+            }
+            
+            // Floating elements in the features section
+            const floatingElements = document.getElementById('floatingElements');
+            for (let i = 0; i < 8; i++) {
+                createFloatingElement();
+            }
+            
+            function createFloatingElement() {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                // Random positions and sizes
+                const size = 30 + Math.random() * 60;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const tx = (Math.random() * 100) - 50;
+                const ty = (Math.random() * 100) - 50;
+                const tr = Math.random() * 360;
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.top = `${top}%`;
+                element.style.setProperty('--tx', `${tx}px`);
+                element.style.setProperty('--ty', `${ty}px`);
+                element.style.setProperty('--tr', `${tr}deg`);
+                
+                // Animation duration
+                const duration = 8 + Math.random() * 7;
+                element.style.animationDuration = `${duration}s`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                
+                floatingElements.appendChild(element);
+            }
+        });
+    </script>
+</body>
+</html>
